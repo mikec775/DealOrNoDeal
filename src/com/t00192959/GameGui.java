@@ -3,8 +3,6 @@ package com.t00192959;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameGui {
 
@@ -104,34 +102,17 @@ public class GameGui {
         JButton btnHelp = getBtnHelp();
         JButton btnExit = getBtnExit();
 
-        btnExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnExit.addActionListener(e -> System.exit(0));
 
-                System.exit(0);
 
-            }
+        btnStart.addActionListener(e -> {
+
+            hideUI();
+            createGameGui(getGame());
+
         });
 
-
-        btnStart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                hideUI();
-                createGameGui(getGame());
-
-            }
-        });
-
-        btnHelp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                hideUI();
-
-            }
-        });
+        btnHelp.addActionListener(e -> hideUI());
 
 
     }
@@ -163,14 +144,11 @@ public class GameGui {
 
         JButton clickMe = new JButton("Click");
 
-        clickMe.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        clickMe.addActionListener(e -> {
 
-                hideGameUi();
-                showUI();
+            hideGameUi();
+            showUI();
 
-            }
         });
 
         game.removeAll();
