@@ -6,7 +6,7 @@ public class GameDriver {
 
     public static void main(String[] args) {
 
-        GameGui home = new GameGui(new JFrame());
+        GameGui home = new GameGui(new JFrame(), new JPanel(), new JPanel(), new JButton(), new JButton(), new JButton());
 
 
 
