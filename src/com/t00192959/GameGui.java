@@ -120,8 +120,6 @@ public class GameGui {
         });
 
 
-
-
     }
 
     private void hideUI() {
@@ -146,6 +144,14 @@ public class GameGui {
         JFrame jf = getMainGame();
         jf.setSize(1000,1000);
 
+        createMenu(jf);
+
+        jf.setVisible(true);
+
+    }
+
+    public void createMenu(JFrame jf){
+
         JLabel logo = new JLabel("DEAL OR NO DEAL");
         logo.setFont(new Font("Arial", Font.PLAIN, 80));
 
@@ -169,7 +175,6 @@ public class GameGui {
         help.setText("Help");
         exit.setText("Exit");
 
-
         Font btnFont = new Font("Arial", Font.PLAIN, 30);
         Dimension btnSize = new Dimension(300,100);
 
@@ -189,9 +194,9 @@ public class GameGui {
         jf.add(topMenu);
         jf.add(menu);
 
-        jf.setVisible(true);
 
     }
+
 
 
 }
