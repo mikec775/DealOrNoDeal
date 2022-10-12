@@ -3,12 +3,15 @@ package com.t00192959;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameGui {
 
     private JFrame mainGame;
     private JPanel mainMenu;
     private JPanel mainTopMenu;
+    private JPanel game;
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
@@ -20,6 +23,13 @@ public class GameGui {
 
     public void setMainGame(JFrame mainGame) {
         this.mainGame = mainGame;
+    }
+    public JPanel getGame() {
+        return game;
+    }
+
+    public void setGame(JPanel game) {
+        this.game = game;
     }
 
     public JPanel getMainMenu() {
@@ -71,6 +81,63 @@ public class GameGui {
         setBtnExit(btnExit);
         setBtnHelp(btnHelp);
         createGui();
+        menuLogic();
+
+    }
+
+    private void menuLogic() {
+
+        JButton btnStart = getBtnStart();
+        JButton btnHelp = getBtnHelp();
+        JButton btnExit = getBtnExit();
+
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                System.exit(0);
+
+            }
+        });
+
+
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                hideUI();
+
+            }
+        });
+
+        btnHelp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                hideUI();
+
+            }
+        });
+
+
+
+
+    }
+
+    private void hideUI() {
+
+        JPanel mm = getMainMenu();
+        JPanel mtp = getMainTopMenu();
+
+        mm.setVisible(false);
+        mtp.setVisible(false);
+
+    }
+
+    private void createGameGui(JPanel game) {
+
+        System.out.println("Hello World");
+        //todo
 
     }
 
