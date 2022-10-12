@@ -8,9 +8,6 @@ public class GameDriver {
 
         GameGui home = new GameGui(new JFrame(), new JPanel(), new JPanel(), new JButton(), new JButton(), new JButton());
 
-
-
-
     }
 
 }

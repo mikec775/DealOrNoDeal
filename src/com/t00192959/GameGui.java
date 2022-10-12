@@ -185,6 +185,7 @@ public class GameGui {
         BoxLayout bl2 = new BoxLayout(topMenu, BoxLayout.X_AXIS);
         BoxLayout bl3 = new BoxLayout(jf, BoxLayout.Y_AXIS);
 
+
         fullMenu.setSize(new Dimension(1000,1000));
 
         menu.setPreferredSize(new Dimension(700,500));
@@ -224,6 +225,7 @@ public class GameGui {
 
 
     }
+
 
 
 
