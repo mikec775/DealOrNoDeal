@@ -134,7 +134,6 @@ public class GameGui {
 
         getFullMenu().setVisible(true);
 
-
     }
 
 
