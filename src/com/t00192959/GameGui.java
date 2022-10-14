@@ -3,11 +3,17 @@ package com.t00192959;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameGui {
 
     private JFrame mainGame;
     private JPanel mainMenu;
+
+    public static void setBoxHolder(ArrayList<JButton> boxHolder) {
+        GameGui.boxHolder = boxHolder;
+    }
 
     public JPanel getFullMenu() {
         return fullMenu;
@@ -20,10 +26,27 @@ public class GameGui {
     private JPanel fullMenu;
     private JPanel mainTopMenu;
     private JPanel game;
+    private JPanel moneyList;
+    private JPanel boxContainer;
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
 
+    private static ArrayList<JTextField> moneyHolder;
+
+    public static ArrayList<JButton> getBoxHolder() {
+        return boxHolder;
+    }
+
+    private static ArrayList<JButton> boxHolder;
+
+    public ArrayList<JTextField> getMoneyHolder() {
+        return moneyHolder;
+    }
+
+    public void setMoneyHolder(ArrayList<JTextField> moneyHolder) {
+        this.moneyHolder = moneyHolder;
+    }
 
     public JFrame getMainGame() {
         return mainGame;
@@ -90,7 +113,8 @@ public class GameGui {
         setBtnStart(btnStart);
         setBtnExit(btnExit);
         setBtnHelp(btnHelp);
-
+        setMoneyHolder(new ArrayList<>());
+        setBoxHolder(new ArrayList<>());
         createGui();
         menuLogic();
 
@@ -108,7 +132,11 @@ public class GameGui {
         btnStart.addActionListener(e -> {
 
             hideUI();
-            createGameGui(getGame());
+            try {
+                createGameGui(getGame());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
         });
 
@@ -137,24 +165,75 @@ public class GameGui {
     }
 
 
-    private void createGameGui(JPanel game) {
+    public JPanel getMoneyList() {
+        return moneyList;
+    }
+
+    public void setMoneyList(JPanel moneyList) {
+        this.moneyList = moneyList;
+    }
+
+    public JPanel getBoxContainer() {
+        return boxContainer;
+    }
+
+    public void setBoxContainer(JPanel boxContainer) {
+        this.boxContainer = boxContainer;
+    }
+
+    private void createGameGui(JPanel game) throws IOException {
 
         JFrame jf = getMainGame();
 
-        JButton clickMe = new JButton("Click");
+//        JButton clickMe = new JButton("Click");
+//
+//        clickMe.addActionListener(e -> {
+//
+//            hideGameUi();
+//            showUI();
+//
+//        });
+//
+//        game.removeAll();
+//        game.add(clickMe);
+//        game.setVisible(true);
 
-        clickMe.addActionListener(e -> {
+        moneyList = new JPanel();
+        moneyList.setPreferredSize(new Dimension(300,900));
 
-            hideGameUi();
-            showUI();
+        boxContainer = new JPanel();
+        boxContainer.setPreferredSize(new Dimension(600,900));
 
-        });
+        for (int i = 0; i < 27; i++) {
 
-        game.removeAll();
-        game.add(clickMe);
-        game.setVisible(true);
+            JTextField jtf = new JTextField();
+            jtf.setPreferredSize(new Dimension(200,20));
+            jtf.setText("Money");
+            jtf.setHorizontalAlignment(SwingConstants.RIGHT);
+            jtf.setBackground(Color.red);
+            jtf.setForeground(Color.white);
+            jtf.setEnabled(false);
+            moneyHolder.add(jtf);
+            moneyList.add(jtf);
 
+        }
+
+        for (int i = 0; i < 27; i++) {
+
+            JButton jb = new JButton();
+            jb.setPreferredSize(new Dimension(190,90));
+            jb.setText(String.valueOf(i+1));
+            boxHolder.add(jb);
+            boxContainer.add(jb);
+
+        }
+
+        game.add(moneyList);
+        game.add(boxContainer);
         jf.add(game);
+
+        GameLogic gL = new GameLogic(getMoneyHolder());
+        gL.boxLogic(getBoxHolder(), getMoneyHolder());
 
     }
 
@@ -183,7 +262,6 @@ public class GameGui {
         BoxLayout bl = new BoxLayout(menu, BoxLayout.Y_AXIS);
         BoxLayout bl2 = new BoxLayout(topMenu, BoxLayout.X_AXIS);
         BoxLayout bl3 = new BoxLayout(jf, BoxLayout.Y_AXIS);
-
 
         fullMenu.setSize(new Dimension(1000,1000));
 
@@ -224,7 +302,6 @@ public class GameGui {
 
 
     }
-
 
 
 
