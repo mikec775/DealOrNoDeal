@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class GameGui {
 
-    private JFrame mainGame;
+    private static JFrame mainGame;
     private JPanel mainMenu;
 
     public static void setBoxHolder(ArrayList<JButton> boxHolder) {
@@ -40,7 +40,7 @@ public class GameGui {
 
     private static ArrayList<JButton> boxHolder;
 
-    public ArrayList<JTextField> getMoneyHolder() {
+    public static ArrayList<JTextField> getMoneyHolder() {
         return moneyHolder;
     }
 
@@ -48,7 +48,7 @@ public class GameGui {
         this.moneyHolder = moneyHolder;
     }
 
-    public JFrame getMainGame() {
+    public static JFrame getMainGame() {
         return mainGame;
     }
 
@@ -185,6 +185,8 @@ public class GameGui {
 
         JFrame jf = getMainGame();
 
+        ImageIcon briefcase = new ImageIcon("resources/briefase.png");
+
 //        JButton clickMe = new JButton("Click");
 //
 //        clickMe.addActionListener(e -> {
@@ -204,6 +206,7 @@ public class GameGui {
         boxContainer = new JPanel();
         boxContainer.setPreferredSize(new Dimension(600,900));
 
+
         for (int i = 0; i < 27; i++) {
 
             JTextField jtf = new JTextField();
@@ -222,7 +225,15 @@ public class GameGui {
 
             JButton jb = new JButton();
             jb.setPreferredSize(new Dimension(190,90));
+
+            //https://stackoverflow.com/questions/19663009/overriding-button-background
+            jb.setContentAreaFilled(false);
+
+            jb.setBorderPainted(false);
+            jb.setIcon(briefcase);
             jb.setText(String.valueOf(i+1));
+            jb.setForeground(Color.white);
+            jb.setHorizontalTextPosition(JButton.CENTER);
             boxHolder.add(jb);
             boxContainer.add(jb);
 
