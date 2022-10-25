@@ -68,6 +68,11 @@ public class Swap {
 
                 winnings.setText(winStr);
 
+                int total = Integer.parseInt(Player.moneyWon);
+                int won = Integer.parseInt(jtf.getText());
+
+                total += won;
+                Player.moneyWon = String.valueOf(total);
 
             }
         };

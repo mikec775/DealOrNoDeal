@@ -18,9 +18,8 @@ public class GameLogic {
         GameGui.moneyRandomHolder = GameGui.getMoneyHolder();
         Collections.shuffle(GameGui.moneyRandomHolder);
 
-
-
     }
+
     public int getNoChosen() {
         return noChosen;
     }
