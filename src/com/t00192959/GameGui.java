@@ -150,6 +150,7 @@ public class GameGui {
 
        getFullMenu().setVisible(false);
 
+
     }
 
     static void hideGameUi(){
