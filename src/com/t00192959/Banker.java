@@ -1,28 +1,24 @@
 package com.t00192959;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.IntStream;
+import java.io.*;
+import java.util.*;
 
 public class Banker {
 
     ArrayList<Integer> knows = new ArrayList<>();
-    static ArrayList<Integer> remaining = new ArrayList<>();
+    static ArrayList<String> remaining = new ArrayList<>();
 
-    public Banker(){
+    public Banker() throws IOException {
 
-        remaining = new ArrayList<>();
+        File moneyList  = new File("money.txt");
+        BufferedReader br = new BufferedReader(new FileReader(moneyList));
 
-        for (JTextField jtf : GameGui.getMoneyHolder()) {
+        for (int i = 0; i < 27; i++) {
 
-            remaining.add(Integer.parseInt(jtf.getText()));
+            remaining.add(br.readLine());
 
         }
-
-
 
     }
 
@@ -34,32 +30,77 @@ public class Banker {
 
         } else if(n==21){
 
-            JOptionPane.showMessageDialog(jf, "Hi want money", "Offer", 1);
+            JOptionPane.showMessageDialog(jf, generateMoney(), "Offer", 1);
 
         } else if(n==24){
 
-            JOptionPane.showMessageDialog(jf, "Hi want money", "Offer", 1);
+            JOptionPane.showMessageDialog(jf, generateMoney(), "Offer", 1);
 
         } else if(n==25) {
 
-            JOptionPane.showMessageDialog(jf, "Swap", "Offer", 1);
+            ArrayList<String> strHolder = new ArrayList<>();
+
+            for(JButton jbx: GameGui.getBoxHolder()){
+
+                if(jbx.isEnabled()){
+
+                    strHolder.add(jbx.getText());
+
+                }
+
+            }
+
+
+            Swap swap = new Swap(jf, strHolder.get(0), strHolder.get(1), GameGui.moneyRandomHolder);
+
 
         }
 
+
+    }
+    public static ArrayList<String> getRemaining() {
+        return remaining;
+    }
+
+    public static ArrayList<Integer> fillArray(ArrayList<JTextField> xyz){
+
+        ArrayList<Integer> arrai = new ArrayList<>();
+
+        for (JTextField jtf: xyz) {
+
+            int value = Integer.parseInt(jtf.getText());
+            arrai.add(value);
+
+
+        }
+
+        return arrai;
 
     }
 
     public void addMoney(int money){
 
         knows.add(money);
-        remaining.remove(money);
+        remaining.remove(String.valueOf(money));
+
     }
 
     public static String generateMoney(){
 
-        int max = Collections.max(remaining);
-        int low = Collections.min(remaining);
-        return String.valueOf(max/low);
+        ArrayList<Integer> moneyLeft = new ArrayList<>();
+        for (String s: remaining) {
+
+            moneyLeft.add(Integer.parseInt(s));
+
+        }
+
+        int max = Collections.max(moneyLeft);
+        int low = Collections.min(moneyLeft);
+
+        Random r = new Random();
+
+        return String.valueOf(r.nextInt(low, max));
+
     }
 
 

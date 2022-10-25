@@ -25,7 +25,7 @@ public class GameGui {
 
     private JPanel fullMenu;
     private JPanel mainTopMenu;
-    private JPanel game;
+    private static JPanel game;
     private JPanel moneyList;
     private JPanel boxContainer;
     private JButton btnStart;
@@ -33,6 +33,7 @@ public class GameGui {
     private JButton btnExit;
 
     private static ArrayList<JTextField> moneyHolder;
+    static ArrayList<JTextField> moneyRandomHolder;
 
     public static ArrayList<JButton> getBoxHolder() {
         return boxHolder;
@@ -55,7 +56,7 @@ public class GameGui {
     public void setMainGame(JFrame mainGame) {
         this.mainGame = mainGame;
     }
-    public JPanel getGame() {
+    public static JPanel getGame() {
         return game;
     }
 
@@ -151,7 +152,7 @@ public class GameGui {
 
     }
 
-    private void hideGameUi(){
+    static void hideGameUi(){
 
         getGame().setVisible(false);
 
@@ -186,19 +187,6 @@ public class GameGui {
         JFrame jf = getMainGame();
 
         ImageIcon briefcase = new ImageIcon("resources/briefase.png");
-
-//        JButton clickMe = new JButton("Click");
-//
-//        clickMe.addActionListener(e -> {
-//
-//            hideGameUi();
-//            showUI();
-//
-//        });
-//
-//        game.removeAll();
-//        game.add(clickMe);
-//        game.setVisible(true);
 
         moneyList = new JPanel();
         moneyList.setPreferredSize(new Dimension(300,900));
