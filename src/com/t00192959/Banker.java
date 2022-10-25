@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Banker {
 
-    ArrayList<Integer> knows = new ArrayList<>();
+    static ArrayList<Integer> knows = new ArrayList<>();
     static ArrayList<String> remaining = new ArrayList<>();
 
     public Banker() throws IOException {
@@ -24,17 +24,23 @@ public class Banker {
 
     public static void generateOffer(JFrame jf, int n){
 
+        int choice = -1;
+        int genMoney = 0;
+
         if(n<19 && n%6==0){
 
-            JOptionPane.showMessageDialog(jf, generateMoney(), "Offer", 1);
+            genMoney = Integer.parseInt(generateMoney());
+            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 
         } else if(n==21){
 
-            JOptionPane.showMessageDialog(jf, generateMoney(), "Offer", 1);
+            genMoney = Integer.parseInt(generateMoney());
+            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 
         } else if(n==24){
 
-            JOptionPane.showMessageDialog(jf, generateMoney(), "Offer", 1);
+            genMoney = Integer.parseInt(generateMoney());
+            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 
         } else if(n==25) {
 
@@ -55,6 +61,19 @@ public class Banker {
 
 
         }
+
+        if(choice == 0){
+
+            int total = Integer.parseInt(Player.getMoneyWon());
+            total += genMoney;
+
+            Player.moneyWon = String.valueOf(total);
+
+            //reset game
+            GameLogic.resetGame();
+
+        }
+
 
 
     }
@@ -88,20 +107,57 @@ public class Banker {
     public static String generateMoney(){
 
         ArrayList<Integer> moneyLeft = new ArrayList<>();
-        for (String s: remaining) {
+        for (String s: getRemaining()) {
 
             moneyLeft.add(Integer.parseInt(s));
 
         }
 
-        int max = Collections.max(moneyLeft);
-        int low = Collections.min(moneyLeft);
+        int max = customMax(moneyLeft);
+        int low = customMin(moneyLeft);
 
         Random r = new Random();
 
         return String.valueOf(r.nextInt(low, max));
 
     }
+
+    public static int customMax(ArrayList<Integer> moneyLeft){
+
+        int max = Integer.MIN_VALUE;
+
+        for (int m: moneyLeft) {
+
+            if(m > max) {
+
+                max = m;
+
+            }
+
+        }
+
+        return max;
+
+    }
+
+    public static int customMin(ArrayList<Integer> moneyLeft){
+
+        int min = Integer.MAX_VALUE;
+
+        for (int m: moneyLeft) {
+
+            if(m < min) {
+
+                min = m;
+
+            }
+
+        }
+
+        return min;
+
+    }
+
 
 
 }

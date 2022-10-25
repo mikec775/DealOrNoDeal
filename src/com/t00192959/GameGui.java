@@ -10,12 +10,23 @@ public class GameGui {
 
     private static JFrame mainGame;
     private JPanel mainMenu;
+    private static JPanel fullMenu;
+    private JPanel mainTopMenu;
+    private static JPanel game;
+    static JPanel moneyList;
+    static JPanel boxContainer;
+    private JButton btnStart;
+    private JButton btnHelp;
+    private JButton btnExit;
+
+    static ArrayList<JTextField> moneyHolder;
+    static ArrayList<JTextField> moneyRandomHolder;
 
     public static void setBoxHolder(ArrayList<JButton> boxHolder) {
         GameGui.boxHolder = boxHolder;
     }
 
-    public JPanel getFullMenu() {
+    public static JPanel getFullMenu() {
         return fullMenu;
     }
 
@@ -23,30 +34,22 @@ public class GameGui {
         this.fullMenu = fullMenu;
     }
 
-    private JPanel fullMenu;
-    private JPanel mainTopMenu;
-    private static JPanel game;
-    private JPanel moneyList;
-    private JPanel boxContainer;
-    private JButton btnStart;
-    private JButton btnHelp;
-    private JButton btnExit;
-
-    private static ArrayList<JTextField> moneyHolder;
-    static ArrayList<JTextField> moneyRandomHolder;
+    public static void setMoneyRandomHolder(ArrayList<JTextField> moneyRandomHolder) {
+        GameGui.moneyRandomHolder = moneyRandomHolder;
+    }
 
     public static ArrayList<JButton> getBoxHolder() {
         return boxHolder;
     }
 
-    private static ArrayList<JButton> boxHolder;
+    static ArrayList<JButton> boxHolder;
 
     public static ArrayList<JTextField> getMoneyHolder() {
         return moneyHolder;
     }
 
     public void setMoneyHolder(ArrayList<JTextField> moneyHolder) {
-        this.moneyHolder = moneyHolder;
+        GameGui.moneyHolder = moneyHolder;
     }
 
     public static JFrame getMainGame() {
@@ -54,14 +57,14 @@ public class GameGui {
     }
 
     public void setMainGame(JFrame mainGame) {
-        this.mainGame = mainGame;
+        GameGui.mainGame = mainGame;
     }
     public static JPanel getGame() {
         return game;
     }
 
     public void setGame(JPanel game) {
-        this.game = game;
+        GameGui.game = game;
     }
 
     public JPanel getMainMenu() {
@@ -129,14 +132,28 @@ public class GameGui {
 
         btnExit.addActionListener(e -> System.exit(0));
 
-
         btnStart.addActionListener(e -> {
 
             hideUI();
-            try {
-                createGameGui(getGame());
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+
+            if(GameGui.getGame().isVisible() == false){
+
+                GameGui.getGame().setVisible(true);
+                try {
+                    GameLogic.newGame();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+            } else{
+
+                try {
+                    createGameGui(getGame());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
             }
 
         });
@@ -150,6 +167,7 @@ public class GameGui {
 
        getFullMenu().setVisible(false);
 
+
     }
 
     static void hideGameUi(){
@@ -159,30 +177,14 @@ public class GameGui {
     }
 
 
-    private void showUI() {
+   static void showUI() {
 
         getFullMenu().setVisible(true);
 
     }
 
 
-    public JPanel getMoneyList() {
-        return moneyList;
-    }
-
-    public void setMoneyList(JPanel moneyList) {
-        this.moneyList = moneyList;
-    }
-
-    public JPanel getBoxContainer() {
-        return boxContainer;
-    }
-
-    public void setBoxContainer(JPanel boxContainer) {
-        this.boxContainer = boxContainer;
-    }
-
-    private void createGameGui(JPanel game) throws IOException {
+    static void createGameGui(JPanel game) throws IOException {
 
         JFrame jf = getMainGame();
 
@@ -232,7 +234,7 @@ public class GameGui {
         jf.add(game);
 
         GameLogic gL = new GameLogic(getMoneyHolder());
-        gL.boxLogic(getBoxHolder(), getMoneyHolder());
+        gL.boxLogic(getBoxHolder(), moneyRandomHolder);
 
     }
 

@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Player {
 
     private String name;
-    static String moneyWon = "";
+    static String moneyWon = "0";
     private File usr = new File("drnd_usrdetails.txt");
 
     public Player(String name) throws IOException {
@@ -20,6 +20,10 @@ public class Player {
             usr.createNewFile();
         }
 
+    }
+
+    public static String getMoneyWon() {
+        return moneyWon;
     }
 
     public String getName() {
@@ -36,7 +40,7 @@ public class Player {
 
     public String getDetails(){
 
-        return getName();
+        return getName() + " " + getMoneyWon();
 
     }
 
