@@ -23,6 +23,7 @@ public class GameGui {
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
+    private JButton btnMute;
 
     static ArrayList<JTextField> moneyHolder;
     static ArrayList<JTextField> moneyRandomHolder;
@@ -112,13 +113,22 @@ public class GameGui {
         this.btnExit = btnExit;
     }
 
-    public GameGui(JFrame mainGame, JPanel mainMenu, JPanel mainTopMenu, JButton btnStart, JButton btnHelp, JButton btnExit) {
+    public JButton getBtnMute() {
+        return btnMute;
+    }
+
+    public void setBtnMute(JButton btnMute) {
+        this.btnMute = btnMute;
+    }
+
+    public GameGui(JFrame mainGame, JPanel mainMenu, JPanel mainTopMenu, JButton btnStart, JButton btnMute, JButton btnHelp, JButton btnExit) {
 
         setMainGame(mainGame);
         setMainMenu(mainMenu);
         setFullMenu(new JPanel());
         setGame(new JPanel());
         setMainTopMenu(mainTopMenu);
+        setBtnMute(btnMute);
         setBtnStart(btnStart);
         setBtnExit(btnExit);
         setBtnHelp(btnHelp);
@@ -132,8 +142,30 @@ public class GameGui {
     private void menuLogic() {
 
         JButton btnStart = getBtnStart();
+        JButton btnMute = getBtnMute();
         JButton btnHelp = getBtnHelp();
         JButton btnExit = getBtnExit();
+
+        btnMute.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(btnMute.getText().equals("Unmute")){
+
+                    GameDriver.clip.loop(-1);
+                    btnMute.setText("Mute");
+
+
+                }else{
+
+                    GameDriver.clip.stop();
+                    btnMute.setText("Unmute");
+
+                }
+
+            }
+        });
+
 
         btnExit.addActionListener(e -> System.exit(0));
 
@@ -327,16 +359,18 @@ public class GameGui {
 
         fullMenu.setSize(new Dimension(1000,1000));
 
-        menu.setPreferredSize(new Dimension(700,500));
+        menu.setPreferredSize(new Dimension(700,600));
         topMenu.setSize(new Dimension(1000,200));
 
         JButton start = getBtnStart();
         JButton help = getBtnHelp();
         JButton exit = getBtnExit();
+        JButton mute = getBtnMute();
 
         start.setText("Start");
         help.setText("Help");
         exit.setText("Exit");
+        mute.setText("Mute");
 
         Font btnFont = new Font("Arial", Font.PLAIN, 30);
         Dimension btnSize = new Dimension(300,100);
@@ -344,10 +378,12 @@ public class GameGui {
         start.setPreferredSize(btnSize);
         help.setPreferredSize(btnSize);
         exit.setPreferredSize(btnSize);
+        mute.setPreferredSize(btnSize);
 
         start.setFont(btnFont);
         help.setFont(btnFont);
         exit.setFont(btnFont);
+        mute.setFont(btnFont);
 
         topMenu.setBorder(new EmptyBorder(100,20,50,20));
         menu.setBorder(new EmptyBorder(100,400,100,400));
@@ -355,6 +391,7 @@ public class GameGui {
         topMenu.add(logo);
         menu.add(start);
         menu.add(help);
+        menu.add(mute);
         menu.add(exit);
 
         fullMenu.add(topMenu);
