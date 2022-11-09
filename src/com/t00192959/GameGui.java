@@ -3,6 +3,11 @@ package com.t00192959;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -158,7 +163,54 @@ public class GameGui {
 
         });
 
-        btnHelp.addActionListener(e -> hideUI());
+        btnHelp.addActionListener(e -> {
+            hideUI();
+
+            JPanel jp = new JPanel();
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader("helptext.txt"));
+
+                String helpText = "";
+
+                helpText = br.readLine();
+
+                JTextArea jta = new JTextArea(5,5);
+                jta.setFont(new Font("Arial", Font.PLAIN, 20));
+                jta.setPreferredSize(new Dimension(650,200));
+                jta.append(helpText + "\n");
+                jta.append(helpText + "\n");
+                jta.append(helpText + "\n");
+                jta.append(helpText + "\n");
+                jta.append(helpText + "\n");
+                jp.add(jta);
+
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            JButton jb = new JButton("Exit");
+            jb.setPreferredSize(new Dimension(290,100));
+            jb.setFont(new Font("Arial", Font.PLAIN, 20));
+            jp.add(jb);
+            jp.setBorder(new EmptyBorder(100,20,50,20));
+            getMainGame().add(jp);
+
+            jb.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+
+                    getMainGame().remove(jp);
+                    showUI();
+
+                }
+            });
+
+
+        });
 
 
     }
@@ -203,7 +255,13 @@ public class GameGui {
             jtf.setPreferredSize(new Dimension(200,20));
             jtf.setText("Money");
             jtf.setHorizontalAlignment(SwingConstants.RIGHT);
-            jtf.setBackground(Color.red);
+
+            if(i<14){
+                jtf.setBackground(Color.blue);
+            }else{
+                jtf.setBackground(Color.red);
+            }
+
             jtf.setForeground(Color.white);
             jtf.setEnabled(false);
             moneyHolder.add(jtf);
@@ -232,7 +290,7 @@ public class GameGui {
         game.add(moneyList);
         game.add(boxContainer);
         jf.add(game);
-
+        jf.setResizable(false);
         GameLogic gL = new GameLogic(getMoneyHolder());
         gL.boxLogic(getBoxHolder(), moneyRandomHolder);
 
@@ -242,7 +300,7 @@ public class GameGui {
 
         JFrame jf = getMainGame();
         jf.setSize(1000,1000);
-
+        jf.setTitle("Deal Or No Deal");
         JPanel fullMenu = getFullMenu();
 
         createMenu(jf, fullMenu);

@@ -22,7 +22,7 @@ public class Banker {
 
     }
 
-    public static void generateOffer(JFrame jf, int n){
+    public static void generateOffer(JFrame jf, int n) throws IOException {
 
         int choice = -1;
         int genMoney = 0;
@@ -67,7 +67,7 @@ public class Banker {
             int total = Integer.parseInt(Player.getMoneyWon());
             total += genMoney;
 
-            Player.moneyWon = String.valueOf(total);
+            Player.setMoneyWon(String.valueOf(total));
 
             //reset game
             GameLogic.resetGame();

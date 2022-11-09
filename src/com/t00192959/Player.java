@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class Player {
 
-    private String name;
-    static String moneyWon = "0";
+    private static String name;
+    private static String moneyWon = "0";
     private File usr = new File("drnd_usrdetails.txt");
 
     public Player(String name) throws IOException {
@@ -26,7 +26,14 @@ public class Player {
         return moneyWon;
     }
 
-    public String getName() {
+     public static void setMoneyWon(String bills) throws IOException {
+
+        Player.moneyWon = String.valueOf(Integer.parseInt(bills));
+        Player.updateWinnings();
+
+    }
+
+    public static String getName() {
         return name;
     }
 
@@ -38,7 +45,7 @@ public class Player {
         this.name = name;
     }
 
-    public String getDetails(){
+    public static String getDetails(){
 
         return getName() + " " + getMoneyWon();
 
@@ -52,5 +59,15 @@ public class Player {
         fileout.close();
 
     }
+
+    public static void updateWinnings() throws IOException {
+
+        FileWriter fw = new FileWriter("drnd_usrdetails.txt", false);
+        fw.write(getDetails());
+        System.out.println("here");
+        fw.close();
+    }
+
+
 
 }

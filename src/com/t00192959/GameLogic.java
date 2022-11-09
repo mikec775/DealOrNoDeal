@@ -64,7 +64,11 @@ public class GameLogic {
 
                 if (getNoChosen() < 28) {
 
-                    bnk.generateOffer(GameGui.getMainGame(), getNoChosen());
+                    try {
+                        bnk.generateOffer(GameGui.getMainGame(), getNoChosen());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
                 }
 

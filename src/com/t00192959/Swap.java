@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Swap {
@@ -68,11 +69,15 @@ public class Swap {
 
                 winnings.setText(winStr);
 
-                int total = Integer.parseInt(Player.moneyWon);
+                int total = Integer.parseInt(Player.getMoneyWon());
                 int won = Integer.parseInt(jtf.getText());
 
                 total += won;
-                Player.moneyWon = String.valueOf(total);
+                try {
+                    Player.setMoneyWon(String.valueOf(total));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
             }
         };
@@ -82,6 +87,10 @@ public class Swap {
         jb2.addActionListener(winner);
 
 
+
     }
+
+
+
 
 }
