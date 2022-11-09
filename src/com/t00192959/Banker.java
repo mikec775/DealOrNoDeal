@@ -27,19 +27,14 @@ public class Banker {
         int choice = -1;
         int genMoney = 0;
 
-        if(n<19 && n%6==0){
+        if(n<19 && n%6==0 || n==21){
 
-            genMoney = Integer.parseInt(generateMoney());
-            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
-
-        } else if(n==21){
-
-            genMoney = Integer.parseInt(generateMoney());
+            genMoney = generateMoney();
             choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 
         } else if(n==24){
 
-            genMoney = Integer.parseInt(generateMoney());
+            genMoney = generateMoney();
             choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 
         } else if(n==25) {
@@ -104,7 +99,7 @@ public class Banker {
 
     }
 
-    public static String generateMoney(){
+    public static int generateMoney(){
 
         ArrayList<Integer> moneyLeft = new ArrayList<>();
         for (String s: getRemaining()) {
@@ -116,9 +111,39 @@ public class Banker {
         int max = customMax(moneyLeft);
         int low = customMin(moneyLeft);
 
-        Random r = new Random();
+        int sum = 0;
 
-        return String.valueOf(r.nextInt(low, max));
+        for (int n:moneyLeft) {
+
+            sum+=n;
+
+        }
+
+        //game theory
+        int total = sum/moneyLeft.size();
+        int offer = (int) Math.sqrt(total*total+max/moneyLeft.size());
+
+        if(offer<=0){
+
+            offer = max / moneyLeft.size() + low*moneyLeft.size();
+
+        }
+
+        int count = 0;
+        while(offer>=max || offer<=low) {
+            count++;
+            offer = moneyLeft.get(count) + 5000;
+
+            if(offer>=max){
+
+                offer-=1000;
+
+            }
+
+
+        }
+
+        return (int) offer;
 
     }
 

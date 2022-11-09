@@ -186,9 +186,12 @@ public class GameGui {
                 jp.add(jta);
 
             } catch (FileNotFoundException ex) {
-                throw new RuntimeException(ex);
+
+                JOptionPane.showMessageDialog(null, "File Not Found");
+
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+
+                JOptionPane.showMessageDialog(null, "File Error");
             }
 
             JButton jb = new JButton("Exit");
@@ -303,14 +306,14 @@ public class GameGui {
         jf.setTitle("Deal Or No Deal");
         JPanel fullMenu = getFullMenu();
 
-        createMenu(jf, fullMenu);
+        createMenu(jf);
 
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
-    public void createMenu(JFrame jf, JPanel fullMenu){
+    public void createMenu(JFrame jf){
 
         JLabel logo = new JLabel("DEAL OR NO DEAL");
         logo.setFont(new Font("Arial", Font.PLAIN, 80));
