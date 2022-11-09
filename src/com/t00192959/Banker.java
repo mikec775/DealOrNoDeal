@@ -29,6 +29,7 @@ public class Banker {
 
         if(n<19 && n%6==0 || n==21){
 
+            GameDriver.musicPlayer("telephone.wav", 0);
             genMoney = generateMoney();
             choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 
@@ -50,7 +51,6 @@ public class Banker {
                 }
 
             }
-
 
             Swap swap = new Swap(jf, strHolder.get(0), strHolder.get(1), GameGui.moneyRandomHolder);
 

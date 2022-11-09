@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
-
 public class GameDriver {
 
     static Clip clip;
@@ -19,11 +18,11 @@ public class GameDriver {
         Player p1 = new Player("Joe");
         p1.setUserDetails();
 
-        musicPlayer("theme.wav");
+        musicPlayer("theme.wav", -1);
 
     }
 
-    public static void musicPlayer(String p){
+    public static void musicPlayer(String p, int ifLoop){
 
         try{
 
@@ -35,7 +34,7 @@ public class GameDriver {
                 clip = AudioSystem.getClip();
                 clip.open(music);
                 clip.start();
-                clip.loop(-1);
+                clip.loop(ifLoop);
 
             } else{
 

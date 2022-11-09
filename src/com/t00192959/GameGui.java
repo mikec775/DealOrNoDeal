@@ -175,6 +175,12 @@ public class GameGui {
 
             if(GameGui.getGame().isVisible() == false){
 
+
+                //reset main game
+
+                GameGui.getFullMenu().validate();
+                GameGui.getMainGame().validate();
+
                 GameGui.getGame().setVisible(true);
                 try {
                     GameLogic.newGame();
@@ -246,6 +252,7 @@ public class GameGui {
 
 
         });
+
 
 
     }

@@ -145,7 +145,8 @@ public class GameLogic {
             }
 
 
-
+            GameGui.getMainGame().repaint();
+            GameGui.getMainGame().validate();
 
 
     }

@@ -57,7 +57,7 @@ public class Swap {
         win.add(winnings);
         housing.add(swap);
         housing.add(win);
-        jf.add(housing);
+
 
         ActionListener winner = new ActionListener() {
             @Override
@@ -79,12 +79,42 @@ public class Swap {
                     throw new RuntimeException(ex);
                 }
 
+                jb1.setEnabled(false);
+                jb2.setEnabled(false);
+
+                JButton home = new JButton("Home");
+                home.setPreferredSize(new Dimension(200,200));
+                swap.add(home);
+                home.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        GameLogic.resetGame();
+                        GameGui.showUI();
+
+                        swap.remove(home);
+
+                        System.out.println("Hello");
+
+                        housing.remove(swap);
+
+                        GameGui.getGame().remove(housing);
+
+                    }
+                });
+
+
+
             }
         };
 
+        jf.add(housing);
 
         jb1.addActionListener(winner);
         jb2.addActionListener(winner);
+
+
+
 
 
 
