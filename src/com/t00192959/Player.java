@@ -28,7 +28,7 @@ public class Player {
 
      public static void setMoneyWon(String bills) throws IOException {
 
-        Player.moneyWon = String.valueOf(Integer.parseInt(bills));
+        Player.moneyWon = bills;
         Player.updateWinnings();
 
     }
