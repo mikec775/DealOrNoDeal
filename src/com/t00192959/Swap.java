@@ -59,53 +59,44 @@ public class Swap {
         housing.add(win);
 
 
-        ActionListener winner = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        ActionListener winner = e -> {
 
-                JButton jb = (JButton) e.getSource();
-                JTextField jtf = moneyHolder.get(Integer.parseInt(jb.getText()) - 1);
-                String winStr = "Congratulations you have won €" + jtf.getText();
+            JButton jb = (JButton) e.getSource();
+            JTextField jtf = moneyHolder.get(Integer.parseInt(jb.getText()) - 1);
+            String winStr = "Congratulations you have won €" + jtf.getText();
 
-                winnings.setText(winStr);
+            winnings.setText(winStr);
 
-                int total = Integer.parseInt(Player.getMoneyWon());
-                int won = Integer.parseInt(jtf.getText());
+            int total = Integer.parseInt(Player.getMoneyWon());
+            int won = Integer.parseInt(jtf.getText());
 
-                total += won;
-                try {
-                    Player.setMoneyWon(String.valueOf(total));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                jb1.setEnabled(false);
-                jb2.setEnabled(false);
-
-                JButton home = new JButton("Home");
-                home.setPreferredSize(new Dimension(200,200));
-                swap.add(home);
-                home.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        GameLogic.resetGame();
-                        GameGui.showUI();
-
-                        swap.remove(home);
-
-                        System.out.println("Hello");
-
-                        housing.remove(swap);
-
-                        GameGui.getGame().remove(housing);
-
-                    }
-                });
-
-
-
+            total += won;
+            try {
+                Player.setMoneyWon(String.valueOf(total));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
+
+            jb1.setEnabled(false);
+            jb2.setEnabled(false);
+
+            JButton home = new JButton("Home");
+            home.setPreferredSize(new Dimension(200,200));
+            swap.add(home);
+            home.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    swap.removeAll();
+                    housing.removeAll();
+                    GameGui.getGame().remove(housing);
+                    GameLogic.resetGame();
+
+                }
+            });
+
+
+
         };
 
         jf.add(housing);

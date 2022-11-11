@@ -10,15 +10,20 @@ import java.util.Random;
 public class GameLogic {
 
     private int noChosen = 0;
-    private Banker bnk = new Banker();
+    private Banker bnk;
     public GameLogic(ArrayList<JTextField> moneyHolder) throws IOException {
 
+        bnk = new Banker();
+
         fillMoneyArray(moneyHolder);
-        GameGui.moneyRandomHolder = GameGui.getMoneyHolder();
+
+        bnk.moneyRandomHolder = GameGui.getMoneyHolder();
+
+
 
         //Collections.shuffle(GameGui.moneyRandomHolder);
 
-        customShuffle(GameGui.moneyRandomHolder);
+        customShuffle(bnk.moneyRandomHolder);
 
 
     }
@@ -44,7 +49,7 @@ public class GameLogic {
 
     }
 
-    public void boxLogic(ArrayList<JButton> jbx, ArrayList<JTextField> moneyRandomHolder) {
+    public void boxLogic(ArrayList<JButton> jbx) {
 
         try {
 
@@ -53,7 +58,7 @@ public class GameLogic {
                 setNoChosen(getNoChosen() + 1);
 
                 JButton clicked = (JButton) e.getSource();
-                JTextField jtf = moneyRandomHolder.get(Integer.parseInt(clicked.getText()) - 1);
+                JTextField jtf = bnk.moneyRandomHolder.get(Integer.parseInt(clicked.getText()) - 1);
 
                 double money = Double.parseDouble(jtf.getText());
 
@@ -82,11 +87,11 @@ public class GameLogic {
 
             }
 
-            Banker.fillArray(moneyRandomHolder);
+            Banker.fillArray(bnk.moneyRandomHolder);
 
         } catch(Exception e){
 
-            //fail
+            System.out.println("Failed");
 
         }
 
@@ -110,46 +115,16 @@ public class GameLogic {
 
         }
 
-        GameGui.setMoneyRandomHolder(temp);
+       bnk.setMoneyRandomHolder(temp);
 
     }
 
     public static void resetGame(){
 
-        Banker.remaining.clear();
-        Banker.knows.clear();
-        GameGui.moneyRandomHolder.clear();
-        GameGui.boxHolder.clear();
-        GameGui.boxContainer.removeAll();
-        GameGui.moneyList.removeAll();
-        GameGui.moneyHolder.clear();
-        GameGui.hideGameUi();
         GameGui.showUI();
 
     }
 
-    public static void newGame() throws IOException {
-
-
-            GameGui.getGame().removeAll();
-            GameGui.createGameGui(GameGui.getGame());
-
-            for (JButton jb : GameGui.boxHolder) {
-
-                if(jb.isEnabled() == false){
-
-                    jb.setEnabled(true);
-
-                }
-
-            }
-
-
-            GameGui.getMainGame().repaint();
-            GameGui.getMainGame().validate();
-
-
-    }
 
 
 }

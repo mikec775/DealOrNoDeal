@@ -8,6 +8,7 @@ public class Banker {
 
     static ArrayList<Integer> knows = new ArrayList<>();
     static ArrayList<String> remaining = new ArrayList<>();
+    static ArrayList<JTextField> moneyRandomHolder;
 
     public Banker() throws IOException {
 
@@ -20,6 +21,10 @@ public class Banker {
 
         }
 
+    }
+
+    public static void setMoneyRandomHolder(ArrayList<JTextField> moneyRandomHolder) {
+        Banker.moneyRandomHolder = moneyRandomHolder;
     }
 
     public static void generateOffer(JFrame jf, int n) throws IOException {
@@ -52,7 +57,7 @@ public class Banker {
 
             }
 
-            Swap swap = new Swap(jf, strHolder.get(0), strHolder.get(1), GameGui.moneyRandomHolder);
+            Swap swap = new Swap(jf, strHolder.get(0), strHolder.get(1), moneyRandomHolder);
 
 
         }

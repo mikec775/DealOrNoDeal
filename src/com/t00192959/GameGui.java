@@ -19,14 +19,12 @@ public class GameGui {
     private JPanel mainTopMenu;
     private static JPanel game;
     static JPanel moneyList;
-    static JPanel boxContainer;
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
     private JButton btnMute;
 
     static ArrayList<JTextField> moneyHolder;
-    static ArrayList<JTextField> moneyRandomHolder;
 
     public static void setBoxHolder(ArrayList<JButton> boxHolder) {
         GameGui.boxHolder = boxHolder;
@@ -40,9 +38,6 @@ public class GameGui {
         this.fullMenu = fullMenu;
     }
 
-    public static void setMoneyRandomHolder(ArrayList<JTextField> moneyRandomHolder) {
-        GameGui.moneyRandomHolder = moneyRandomHolder;
-    }
 
     public static ArrayList<JButton> getBoxHolder() {
         return boxHolder;
@@ -69,7 +64,7 @@ public class GameGui {
         return game;
     }
 
-    public void setGame(JPanel game) {
+    public static void setGame(JPanel game) {
         GameGui.game = game;
     }
 
@@ -166,38 +161,19 @@ public class GameGui {
             }
         });
 
-
         btnExit.addActionListener(e -> System.exit(0));
 
         btnStart.addActionListener(e -> {
 
             hideUI();
 
-            if(GameGui.getGame().isVisible() == false){
-
-
-                //reset main game
-
-                GameGui.getFullMenu().validate();
-                GameGui.getMainGame().validate();
-
-                GameGui.getGame().setVisible(true);
                 try {
-                    GameLogic.newGame();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-            } else{
-
-                try {
-                    createGameGui(getGame());
+                    createGameGui(new JPanel());
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
 
 
-            }
 
         });
 
@@ -261,7 +237,6 @@ public class GameGui {
 
        getFullMenu().setVisible(false);
 
-
     }
 
     static void hideGameUi(){
@@ -270,71 +245,105 @@ public class GameGui {
 
     }
 
-
    static void showUI() {
 
         getFullMenu().setVisible(true);
 
     }
 
-
-    static void createGameGui(JPanel game) throws IOException {
+    public void createGameGui(JPanel game) throws IOException {
 
         JFrame jf = getMainGame();
 
-        ImageIcon briefcase = new ImageIcon("resources/briefase.png");
+        if(getGame().isVisible() == false){
 
-        moneyList = new JPanel();
-        moneyList.setPreferredSize(new Dimension(300,900));
+            getGame().setVisible(true);
 
-        boxContainer = new JPanel();
-        boxContainer.setPreferredSize(new Dimension(600,900));
+            for (JButton jb : boxHolder) {
 
+                jb.setEnabled(true);
 
-        for (int i = 0; i < 27; i++) {
-
-            JTextField jtf = new JTextField();
-            jtf.setPreferredSize(new Dimension(200,20));
-            jtf.setText("Money");
-            jtf.setHorizontalAlignment(SwingConstants.RIGHT);
-
-            if(i<14){
-                jtf.setBackground(Color.blue);
-            }else{
-                jtf.setBackground(Color.red);
             }
 
-            jtf.setForeground(Color.white);
-            jtf.setEnabled(false);
-            moneyHolder.add(jtf);
-            moneyList.add(jtf);
+            for (JTextField jtf : moneyHolder) {
 
+                if(Integer.parseInt(jtf.getText()) < 1000){
+                    jtf.setBackground(Color.blue);
+                }else{
+                    jtf.setBackground(Color.red);
+                }
+
+                jtf.setEnabled(true);
+
+            }
+
+            GameLogic gL = new GameLogic(getMoneyHolder());
+            gL.boxLogic(getBoxHolder());
+
+
+        } else{
+
+            setGame(game);
+
+            FlowLayout fl = new FlowLayout();
+
+            ImageIcon briefcase = new ImageIcon("resources/briefase.png");
+
+            JPanel housing = new JPanel();
+
+            moneyList = new JPanel();
+            moneyList.setPreferredSize(new Dimension(300,900));
+
+            JPanel boxContainer = new JPanel();
+            housing.setLayout(fl);
+            boxContainer.setLayout(fl);
+            moneyList.setLayout(fl);
+            boxContainer.setPreferredSize(new Dimension(600,900));
+
+            for (int i = 0; i < 27; i++) {
+
+                JTextField jtf = new JTextField();
+                jtf.setPreferredSize(new Dimension(200,20));
+                jtf.setText("Money");
+                jtf.setHorizontalAlignment(SwingConstants.RIGHT);
+
+                if(i<14){
+                    jtf.setBackground(Color.blue);
+                }else{
+                    jtf.setBackground(Color.red);
+                }
+
+                jtf.setForeground(Color.white);
+                jtf.setEnabled(false);
+                moneyHolder.add(jtf);
+                moneyList.add(jtf);
+
+                JButton jb = new JButton();
+                jb.setPreferredSize(new Dimension(190,90));
+
+                //https://stackoverflow.com/questions/19663009/overriding-button-background
+                jb.setContentAreaFilled(false);
+
+                jb.setBorderPainted(false);
+                jb.setIcon(briefcase);
+                jb.setText(String.valueOf(i+1));
+                jb.setForeground(Color.white);
+                jb.setHorizontalTextPosition(JButton.CENTER);
+
+                boxHolder.add(jb);
+                boxContainer.add(jb);
+
+            }
+
+            housing.add(moneyList);
+            housing.add(boxContainer);
+            game.add(housing);
+            jf.add(game);
+
+            GameLogic gL = new GameLogic(getMoneyHolder());
+            gL.boxLogic(getBoxHolder());
         }
 
-        for (int i = 0; i < 27; i++) {
-
-            JButton jb = new JButton();
-            jb.setPreferredSize(new Dimension(190,90));
-
-            //https://stackoverflow.com/questions/19663009/overriding-button-background
-            jb.setContentAreaFilled(false);
-
-            jb.setBorderPainted(false);
-            jb.setIcon(briefcase);
-            jb.setText(String.valueOf(i+1));
-            jb.setForeground(Color.white);
-            jb.setHorizontalTextPosition(JButton.CENTER);
-            boxHolder.add(jb);
-            boxContainer.add(jb);
-
-        }
-
-        game.add(moneyList);
-        game.add(boxContainer);
-        jf.add(game);
-        jf.setResizable(false);
-        GameLogic gL = new GameLogic(getMoneyHolder());
-        gL.boxLogic(getBoxHolder(), moneyRandomHolder);
 
     }
 
@@ -408,7 +417,6 @@ public class GameGui {
 
 
     }
-
 
 
 }
