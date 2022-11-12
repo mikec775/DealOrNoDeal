@@ -343,7 +343,10 @@ public class GameGui {
             leftCol.setLayout(fl);
             leftCol.setPreferredSize(new Dimension(300,900));
 
-            JLabel volbl = new JLabel("Volume");
+            JLabel volbl = new JLabel();
+            String temp = "Volume        " + (int)volume;
+            String vol = "Volume        ";
+            volbl.setText(temp);
             volbl.setBorder(new EmptyBorder(20,0,5,0));
             JSlider jsl = new JSlider(0,100);
             jsl.setBorder(new EmptyBorder(5,0,20,0));
@@ -366,6 +369,8 @@ public class GameGui {
 
                     volume = jsl.getValue();
                     GameLogic.volumeControl(volume);
+
+                    volbl.setText(vol + (int)volume);
 
 
                 }
