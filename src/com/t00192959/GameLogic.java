@@ -12,18 +12,19 @@ import java.util.Random;
 public class GameLogic {
 
     private int noChosen = 0;
-    static Banker bnk;
+    private Banker bnk2;
 
     public GameLogic(ArrayList<JTextField> moneyHolder) throws IOException {
 
-        bnk = new Banker();
+        bnk2 = new Banker();
 
         fillMoneyArray(moneyHolder);
 
-        bnk.moneyRandomHolder = GameGui.getMoneyHolder();
+        bnk2.moneyRandomHolder = GameGui.getMoneyHolder();
 
-        customShuffle(bnk.moneyRandomHolder);
+        customShuffle(bnk2.moneyRandomHolder);
 
+        setNoChosen(0);
 
     }
 
@@ -57,11 +58,11 @@ public class GameLogic {
                 setNoChosen(getNoChosen() + 1);
 
                 JButton clicked = (JButton) e.getSource();
-                JTextField jtf = Banker.moneyRandomHolder.get(Integer.parseInt(clicked.getText()) - 1);
+                JTextField jtf = bnk2.moneyRandomHolder.get(Integer.parseInt(clicked.getText()) - 1);
 
                 double money = Double.parseDouble(jtf.getText());
 
-                bnk.addMoney((int) money);
+                bnk2.addMoney((int) money);
 
                 jtf.setBackground(Color.BLACK);
                 clicked.setEnabled(false);
@@ -69,7 +70,9 @@ public class GameLogic {
                 if (getNoChosen() < 28) {
 
                     try {
-                        bnk.generateOffer(GameGui.getMainGame(), getNoChosen());
+
+                        bnk2.generateOffer(GameGui.getMainGame(), getNoChosen());
+
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -86,7 +89,7 @@ public class GameLogic {
 
             }
 
-            Banker.fillArray(Banker.moneyRandomHolder);
+            bnk2.fillArray(bnk2.moneyRandomHolder);
 
         } catch(Exception e){
 
@@ -136,10 +139,5 @@ public class GameLogic {
 
     }
 
-    public static void garbage(Banker bnk){
-
-        bnk = null;
-
-    }
 
 }

@@ -1,16 +1,20 @@
 package com.t00192959;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
 public class Banker {
 
-    static ArrayList<Integer> knows = new ArrayList<>();
-    static ArrayList<String> remaining = new ArrayList<>();
+    private ArrayList<Integer> knows = new ArrayList<>();
+    static ArrayList<String> remaining;
     static ArrayList<JTextField> moneyRandomHolder;
 
     public Banker() throws IOException {
+
+        remaining = new ArrayList<>();
+        remaining.clear();
 
         File moneyList  = new File("money.txt");
         BufferedReader br = new BufferedReader(new FileReader(moneyList));
@@ -32,13 +36,7 @@ public class Banker {
         int choice = -1;
         int genMoney = 0;
 
-        if(n<19 && n%6==0 || n==21){
-
-            GameDriver.musicPlayer("telephone.wav", 0);
-            genMoney = generateMoney();
-            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
-
-        } else if(n==24){
+        if(n<19 && n%6==0 || n==21 || n==24) {
 
             GameDriver.musicPlayer("telephone.wav", 0);
             genMoney = generateMoney();
@@ -60,7 +58,6 @@ public class Banker {
 
             Swap swap = new Swap(jf, strHolder.get(0), strHolder.get(1), moneyRandomHolder);
 
-
         }
 
         if(choice == 0){
@@ -71,17 +68,20 @@ public class Banker {
             Player.setMoneyWon(String.valueOf(total));
 
             //reset game
+            remaining.clear();
+            moneyRandomHolder.clear();
             GameLogic.resetGame();
             GameGui.hideGameUi();
-            remaining.clear();
-            knows.clear();
-            moneyRandomHolder.clear();
 
-            GameLogic.garbage(GameLogic.bnk);
+            for (JButton jb : GameGui.getBoxHolder()) {
+
+                ActionListener[] al = jb.getActionListeners();
+                jb.removeActionListener(al[0]);
+
+
+            }
 
         }
-
-
 
     }
     public static ArrayList<String> getRemaining() {
@@ -96,7 +96,6 @@ public class Banker {
 
             int value = Integer.parseInt(jtf.getText());
             arrai.add(value);
-
 
         }
 

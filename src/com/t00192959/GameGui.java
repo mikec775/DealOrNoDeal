@@ -16,7 +16,7 @@ public class GameGui {
     private static JPanel fullMenu;
     private JPanel mainTopMenu;
     private static JPanel game;
-    static JPanel moneyList;
+    private JPanel moneyList;
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
