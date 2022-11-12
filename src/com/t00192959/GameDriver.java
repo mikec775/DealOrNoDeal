@@ -6,10 +6,12 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameDriver {
 
     static Clip clip;
+    static ArrayList<Clip> clips = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -35,6 +37,8 @@ public class GameDriver {
                 clip.open(music);
                 clip.start();
                 clip.loop(ifLoop);
+
+                clips.add(clip);
 
             } else{
 

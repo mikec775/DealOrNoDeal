@@ -146,13 +146,13 @@ public class GameGui {
 
                 if(btnMute.getText().equals("Unmute")){
 
-                    GameDriver.clip.loop(-1);
+                    GameDriver.clips.get(0).start();
                     btnMute.setText("Mute");
 
 
                 }else{
 
-                    GameDriver.clip.stop();
+                    GameDriver.clips.get(0).stop();
                     btnMute.setText("Unmute");
 
                 }

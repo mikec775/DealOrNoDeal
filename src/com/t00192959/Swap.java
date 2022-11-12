@@ -84,7 +84,7 @@ public class Swap {
 
             JButton home = new JButton("Home");
             home.setPreferredSize(new Dimension(190,80));
-            home.setFont(new Font("Arial", Font.BOLD, 25));
+            home.setFont(new Font("Arial", Font.PLAIN, 18));
             win.add(home);
             home.addActionListener(new ActionListener() {
                 @Override
