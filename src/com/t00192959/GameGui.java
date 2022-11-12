@@ -16,7 +16,6 @@ public class GameGui {
     private static JPanel fullMenu;
     private JPanel mainTopMenu;
     private static JPanel game;
-    private JPanel moneyList;
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
@@ -280,7 +279,7 @@ public class GameGui {
 
             JPanel housing = new JPanel();
 
-            moneyList = new JPanel();
+            JPanel moneyList = new JPanel();
             moneyList.setPreferredSize(new Dimension(300,700));
 
             JPanel boxContainer = new JPanel();

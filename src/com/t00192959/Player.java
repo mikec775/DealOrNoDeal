@@ -77,7 +77,7 @@ public class Player {
      * @param name the name
      */
     public void setName(String name) {
-        this.name = name;
+        Player.name = name;
     }
 
     /**

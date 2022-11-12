@@ -2,7 +2,6 @@ package com.t00192959;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,16 +85,13 @@ public class Swap {
             home.setPreferredSize(new Dimension(190,80));
             home.setFont(new Font("Arial", Font.PLAIN, 18));
             win.add(home);
-            home.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+            home.addActionListener(e1 -> {
 
-                    swap.removeAll();
-                    housing.removeAll();
-                    GameGui.getGame().remove(housing);
-                    GameLogic.resetGame();
+                swap.removeAll();
+                housing.removeAll();
+                GameGui.getGame().remove(housing);
+                GameLogic.resetGame();
 
-                }
             });
 
 

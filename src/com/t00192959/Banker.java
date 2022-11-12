@@ -14,7 +14,6 @@ public class Banker {
     public Banker() throws IOException {
 
         remaining = new ArrayList<>();
-        remaining.clear();
 
         File moneyList  = new File("money.txt");
         BufferedReader br = new BufferedReader(new FileReader(moneyList));
@@ -56,7 +55,7 @@ public class Banker {
 
             }
 
-            Swap swap = new Swap(jf, strHolder.get(0), strHolder.get(1), moneyRandomHolder);
+            new Swap(jf, strHolder.get(0), strHolder.get(1), moneyRandomHolder);
 
         }
 
@@ -154,7 +153,7 @@ public class Banker {
 
         }
 
-        return (int) offer;
+        return offer;
 
     }
 
