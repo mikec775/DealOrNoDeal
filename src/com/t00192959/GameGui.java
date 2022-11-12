@@ -38,7 +38,6 @@ public class GameGui {
         this.fullMenu = fullMenu;
     }
 
-
     public static ArrayList<JButton> getBoxHolder() {
         return boxHolder;
     }

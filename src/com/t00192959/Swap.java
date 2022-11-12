@@ -51,6 +51,8 @@ public class Swap {
         JLabel winnings = new JLabel();
         winnings.setText("Choose 1");
         winnings.setFont(new Font("Arial", Font.BOLD, 25));
+        winnings.setPreferredSize(new Dimension(900,200));
+        winnings.setHorizontalAlignment(SwingConstants.CENTER);
 
         swap.add(jb1);
         swap.add(jb2);
@@ -81,8 +83,9 @@ public class Swap {
             jb2.setEnabled(false);
 
             JButton home = new JButton("Home");
-            home.setPreferredSize(new Dimension(200,200));
-            swap.add(home);
+            home.setPreferredSize(new Dimension(190,80));
+            home.setFont(new Font("Arial", Font.BOLD, 25));
+            win.add(home);
             home.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
