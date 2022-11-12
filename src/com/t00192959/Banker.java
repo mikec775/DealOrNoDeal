@@ -40,6 +40,7 @@ public class Banker {
 
         } else if(n==24){
 
+            GameDriver.musicPlayer("telephone.wav", 0);
             genMoney = generateMoney();
             choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
 

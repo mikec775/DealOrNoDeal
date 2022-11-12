@@ -1,7 +1,11 @@
 package com.t00192959;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +27,8 @@ public class GameGui {
     private JButton btnHelp;
     private JButton btnExit;
     private JButton btnMute;
+
+    static float volume = 50f;
 
     static ArrayList<JTextField> moneyHolder;
 
@@ -172,8 +178,6 @@ public class GameGui {
                     throw new RuntimeException(ex);
                 }
 
-
-
         });
 
         btnHelp.addActionListener(e -> {
@@ -218,7 +222,6 @@ public class GameGui {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-
                     getMainGame().remove(jp);
                     showUI();
 
@@ -227,8 +230,6 @@ public class GameGui {
 
 
         });
-
-
 
     }
 
@@ -291,7 +292,7 @@ public class GameGui {
             JPanel housing = new JPanel();
 
             moneyList = new JPanel();
-            moneyList.setPreferredSize(new Dimension(300,900));
+            moneyList.setPreferredSize(new Dimension(300,700));
 
             JPanel boxContainer = new JPanel();
             housing.setLayout(fl);
@@ -334,15 +335,44 @@ public class GameGui {
 
             }
 
-            housing.add(moneyList);
+            JPanel settings = new JPanel();
+            settings.setLayout(fl);
+            settings.setPreferredSize(new Dimension(200,130));
+
+            JPanel leftCol = new JPanel();
+            leftCol.setLayout(fl);
+            leftCol.setPreferredSize(new Dimension(300,900));
+
+            JLabel volbl = new JLabel("Volume");
+            volbl.setBorder(new EmptyBorder(20,0,5,0));
+            JSlider jsl = new JSlider(0,100);
+            jsl.setBorder(new EmptyBorder(5,0,20,0));
+            settings.add(volbl);
+            settings.add(jsl);
+
+            leftCol.add(moneyList);
+            leftCol.add(settings);
+            housing.add(leftCol);
             housing.add(boxContainer);
             game.add(housing);
             jf.add(game);
 
             GameLogic gL = new GameLogic(getMoneyHolder());
             gL.boxLogic(getBoxHolder());
-        }
 
+            jsl.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+
+                    volume = jsl.getValue();
+                    GameLogic.volumeControl(volume);
+
+
+                }
+            });
+
+
+        }
 
     }
 

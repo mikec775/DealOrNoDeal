@@ -1,5 +1,7 @@
 package com.t00192959;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -18,10 +20,6 @@ public class GameLogic {
         fillMoneyArray(moneyHolder);
 
         bnk.moneyRandomHolder = GameGui.getMoneyHolder();
-
-
-
-        //Collections.shuffle(GameGui.moneyRandomHolder);
 
         customShuffle(bnk.moneyRandomHolder);
 
@@ -125,6 +123,17 @@ public class GameLogic {
 
     }
 
+    public static void volumeControl(float volume){
+
+        for (Clip clip: GameDriver.clips) {
+
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float volumeUpdate = (float) (Math.log((double)volume / 100.0) / Math.log(10.0) * 20.0);
+            gainControl.setValue(volumeUpdate);
+
+        }
+
+    }
 
 
 }

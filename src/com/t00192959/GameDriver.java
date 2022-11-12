@@ -3,6 +3,7 @@ package com.t00192959;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -35,10 +36,17 @@ public class GameDriver {
                 AudioInputStream music = AudioSystem.getAudioInputStream(music_io);
                 clip = AudioSystem.getClip();
                 clip.open(music);
+                clips.add(clip);
+
+                if(clips.size()>=2){
+
+                    GameLogic.volumeControl(GameGui.volume);
+
+                }
+
                 clip.start();
                 clip.loop(ifLoop);
 
-                clips.add(clip);
 
             } else{
 
