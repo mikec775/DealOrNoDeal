@@ -72,6 +72,12 @@ public class Banker {
 
             //reset game
             GameLogic.resetGame();
+            GameGui.hideGameUi();
+            remaining.clear();
+            knows.clear();
+            moneyRandomHolder.clear();
+
+            GameLogic.garbage(GameLogic.bnk);
 
         }
 

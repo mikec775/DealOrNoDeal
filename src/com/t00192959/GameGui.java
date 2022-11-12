@@ -1,14 +1,8 @@
 package com.t00192959;
 
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -41,7 +35,7 @@ public class GameGui {
     }
 
     public void setFullMenu(JPanel fullMenu) {
-        this.fullMenu = fullMenu;
+        GameGui.fullMenu = fullMenu;
     }
 
     public static ArrayList<JButton> getBoxHolder() {
@@ -146,24 +140,21 @@ public class GameGui {
         JButton btnHelp = getBtnHelp();
         JButton btnExit = getBtnExit();
 
-        btnMute.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnMute.addActionListener(e -> {
 
-                if(btnMute.getText().equals("Unmute")){
+            if(btnMute.getText().equals("Unmute")){
 
-                    GameDriver.clips.get(0).start();
-                    btnMute.setText("Mute");
+                GameDriver.clips.get(0).start();
+                btnMute.setText("Mute");
 
 
-                }else{
+            }else{
 
-                    GameDriver.clips.get(0).stop();
-                    btnMute.setText("Unmute");
-
-                }
+                GameDriver.clips.get(0).stop();
+                btnMute.setText("Unmute");
 
             }
+
         });
 
         btnExit.addActionListener(e -> System.exit(0));
@@ -188,7 +179,7 @@ public class GameGui {
             try {
                 BufferedReader br = new BufferedReader(new FileReader("helptext.txt"));
 
-                String helpText = "";
+                String helpText;
 
                 helpText = br.readLine();
 
@@ -218,14 +209,11 @@ public class GameGui {
             jp.setBorder(new EmptyBorder(100,20,50,20));
             getMainGame().add(jp);
 
-            jb.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+            jb.addActionListener(e1 -> {
 
-                    getMainGame().remove(jp);
-                    showUI();
+                getMainGame().remove(jp);
+                showUI();
 
-                }
             });
 
 
@@ -255,7 +243,7 @@ public class GameGui {
 
         JFrame jf = getMainGame();
 
-        if(getGame().isVisible() == false){
+        if(!getGame().isVisible()){
 
             getGame().setVisible(true);
 
@@ -273,6 +261,7 @@ public class GameGui {
                     jtf.setBackground(Color.red);
                 }
 
+                jtf.setBorder(null);
                 jtf.setEnabled(true);
 
             }
@@ -363,17 +352,14 @@ public class GameGui {
             GameLogic gL = new GameLogic(getMoneyHolder());
             gL.boxLogic(getBoxHolder());
 
-            jsl.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
+            jsl.addChangeListener(e -> {
 
-                    volume = jsl.getValue();
-                    GameLogic.volumeControl(volume);
+                volume = jsl.getValue();
+                GameLogic.volumeControl(volume);
 
-                    volbl.setText(vol + (int)volume);
+                volbl.setText(vol + (int)volume);
 
 
-                }
             });
 
 

@@ -114,7 +114,6 @@ public class Player {
 
         FileWriter fw = new FileWriter("drnd_usrdetails.txt", false);
         fw.write(getDetails());
-        System.out.println("here");
         fw.close();
     }
 

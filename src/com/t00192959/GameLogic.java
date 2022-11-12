@@ -12,7 +12,8 @@ import java.util.Random;
 public class GameLogic {
 
     private int noChosen = 0;
-    private Banker bnk;
+    static Banker bnk;
+
     public GameLogic(ArrayList<JTextField> moneyHolder) throws IOException {
 
         bnk = new Banker();
@@ -56,7 +57,7 @@ public class GameLogic {
                 setNoChosen(getNoChosen() + 1);
 
                 JButton clicked = (JButton) e.getSource();
-                JTextField jtf = bnk.moneyRandomHolder.get(Integer.parseInt(clicked.getText()) - 1);
+                JTextField jtf = Banker.moneyRandomHolder.get(Integer.parseInt(clicked.getText()) - 1);
 
                 double money = Double.parseDouble(jtf.getText());
 
@@ -85,7 +86,7 @@ public class GameLogic {
 
             }
 
-            Banker.fillArray(bnk.moneyRandomHolder);
+            Banker.fillArray(Banker.moneyRandomHolder);
 
         } catch(Exception e){
 
@@ -113,7 +114,7 @@ public class GameLogic {
 
         }
 
-       bnk.setMoneyRandomHolder(temp);
+       Banker.setMoneyRandomHolder(temp);
 
     }
 
@@ -135,5 +136,10 @@ public class GameLogic {
 
     }
 
+    public static void garbage(Banker bnk){
+
+        bnk = null;
+
+    }
 
 }
