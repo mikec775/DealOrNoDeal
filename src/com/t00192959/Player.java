@@ -19,6 +19,7 @@ public class Player {
      * @param name the name
      * @throws IOException the io exception
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public Player(String name) throws IOException {
         setName(name);
 

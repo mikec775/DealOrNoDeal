@@ -3,6 +3,7 @@ package com.t00192959;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,6 +17,7 @@ public class GameGui {
     private static JPanel fullMenu;
     private JPanel mainTopMenu;
     private static JPanel game;
+    private JPanel helpContainer;
     private JButton btnStart;
     private JButton btnHelp;
     private JButton btnExit;
@@ -24,6 +26,10 @@ public class GameGui {
     static float volume = 50f;
 
     static ArrayList<JTextField> moneyHolder;
+
+    public JPanel getHelpContainer() {
+        return helpContainer;
+    }
 
     public static void setBoxHolder(ArrayList<JButton> boxHolder) {
         GameGui.boxHolder = boxHolder;
@@ -58,6 +64,7 @@ public class GameGui {
     public void setMainGame(JFrame mainGame) {
         GameGui.mainGame = mainGame;
     }
+
     public static JPanel getGame() {
         return game;
     }
@@ -141,13 +148,13 @@ public class GameGui {
 
         btnMute.addActionListener(e -> {
 
-            if(btnMute.getText().equals("Unmute")){
+            if (btnMute.getText().equals("Unmute")) {
 
                 GameDriver.clips.get(0).start();
                 btnMute.setText("Mute");
 
 
-            }else{
+            } else {
 
                 GameDriver.clips.get(0).stop();
                 btnMute.setText("Unmute");
@@ -162,58 +169,18 @@ public class GameGui {
 
             hideUI();
 
-                try {
-                    createGameGui(new JPanel());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+            try {
+                createGameGui(new JPanel());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
         });
 
         btnHelp.addActionListener(e -> {
             hideUI();
 
-            JPanel jp = new JPanel();
-
-            try {
-                BufferedReader br = new BufferedReader(new FileReader("helptext.txt"));
-
-                String helpText;
-
-                helpText = br.readLine();
-
-                JTextArea jta = new JTextArea(5,5);
-                jta.setFont(new Font("Arial", Font.PLAIN, 20));
-                jta.setPreferredSize(new Dimension(650,200));
-                jta.append(helpText + "\n");
-                jta.append(helpText + "\n");
-                jta.append(helpText + "\n");
-                jta.append(helpText + "\n");
-                jta.append(helpText + "\n");
-                jp.add(jta);
-
-            } catch (FileNotFoundException ex) {
-
-                JOptionPane.showMessageDialog(null, "File Not Found");
-
-            } catch (IOException ex) {
-
-                JOptionPane.showMessageDialog(null, "File Error");
-            }
-
-            JButton jb = new JButton("Exit");
-            jb.setPreferredSize(new Dimension(290,100));
-            jb.setFont(new Font("Arial", Font.PLAIN, 20));
-            jp.add(jb);
-            jp.setBorder(new EmptyBorder(100,20,50,20));
-            getMainGame().add(jp);
-
-            jb.addActionListener(e1 -> {
-
-                getMainGame().remove(jp);
-                showUI();
-
-            });
+            createHelpUI();
 
 
         });
@@ -222,17 +189,17 @@ public class GameGui {
 
     private void hideUI() {
 
-       getFullMenu().setVisible(false);
+        getFullMenu().setVisible(false);
 
     }
 
-    static void hideGameUi(){
+    static void hideGameUi() {
 
         getGame().setVisible(false);
 
     }
 
-   static void showUI() {
+    static void showUI() {
 
         getFullMenu().setVisible(true);
 
@@ -242,7 +209,7 @@ public class GameGui {
 
         JFrame jf = getMainGame();
 
-        if(!getGame().isVisible()){
+        if (!getGame().isVisible()) {
 
             getGame().setVisible(true);
 
@@ -254,9 +221,9 @@ public class GameGui {
 
             for (JTextField jtf : moneyHolder) {
 
-                if(Integer.parseInt(jtf.getText()) < 1000){
+                if (Integer.parseInt(jtf.getText()) < 1000) {
                     jtf.setBackground(Color.blue);
-                }else{
+                } else {
                     jtf.setBackground(Color.red);
                 }
 
@@ -269,7 +236,7 @@ public class GameGui {
             gL.boxLogic(getBoxHolder());
 
 
-        } else{
+        } else {
 
             setGame(game);
 
@@ -280,24 +247,24 @@ public class GameGui {
             JPanel housing = new JPanel();
 
             JPanel moneyList = new JPanel();
-            moneyList.setPreferredSize(new Dimension(300,700));
+            moneyList.setPreferredSize(new Dimension(300, 700));
 
             JPanel boxContainer = new JPanel();
             housing.setLayout(fl);
             boxContainer.setLayout(fl);
             moneyList.setLayout(fl);
-            boxContainer.setPreferredSize(new Dimension(600,900));
+            boxContainer.setPreferredSize(new Dimension(600, 900));
 
             for (int i = 0; i < 27; i++) {
 
                 JTextField jtf = new JTextField();
-                jtf.setPreferredSize(new Dimension(200,20));
+                jtf.setPreferredSize(new Dimension(200, 20));
                 jtf.setText("Money");
                 jtf.setHorizontalAlignment(SwingConstants.RIGHT);
 
-                if(i<14){
+                if (i < 14) {
                     jtf.setBackground(Color.blue);
-                }else{
+                } else {
                     jtf.setBackground(Color.red);
                 }
 
@@ -307,14 +274,14 @@ public class GameGui {
                 moneyList.add(jtf);
 
                 JButton jb = new JButton();
-                jb.setPreferredSize(new Dimension(190,90));
+                jb.setPreferredSize(new Dimension(190, 90));
 
                 //https://stackoverflow.com/questions/19663009/overriding-button-background
                 jb.setContentAreaFilled(false);
 
                 jb.setBorderPainted(false);
                 jb.setIcon(briefcase);
-                jb.setText(String.valueOf(i+1));
+                jb.setText(String.valueOf(i + 1));
                 jb.setForeground(Color.white);
                 jb.setHorizontalTextPosition(JButton.CENTER);
 
@@ -325,19 +292,19 @@ public class GameGui {
 
             JPanel settings = new JPanel();
             settings.setLayout(fl);
-            settings.setPreferredSize(new Dimension(200,130));
+            settings.setPreferredSize(new Dimension(200, 130));
 
             JPanel leftCol = new JPanel();
             leftCol.setLayout(fl);
-            leftCol.setPreferredSize(new Dimension(300,900));
+            leftCol.setPreferredSize(new Dimension(300, 900));
 
             JLabel volbl = new JLabel();
-            String temp = "Volume        " + (int)volume;
+            String temp = "Volume        " + (int) volume;
             String vol = "Volume        ";
             volbl.setText(temp);
-            volbl.setBorder(new EmptyBorder(20,0,5,0));
-            JSlider jsl = new JSlider(0,100);
-            jsl.setBorder(new EmptyBorder(5,0,20,0));
+            volbl.setBorder(new EmptyBorder(20, 0, 5, 0));
+            JSlider jsl = new JSlider(0, 100);
+            jsl.setBorder(new EmptyBorder(5, 0, 20, 0));
             settings.add(volbl);
             settings.add(jsl);
 
@@ -356,7 +323,7 @@ public class GameGui {
                 volume = jsl.getValue();
                 GameLogic.volumeControl(volume);
 
-                volbl.setText(vol + (int)volume);
+                volbl.setText(vol + (int) volume);
 
 
             });
@@ -366,12 +333,12 @@ public class GameGui {
 
     }
 
-    public void createGui(){
+    public void createGui() {
 
         JFrame jf = getMainGame();
-        jf.setSize(1000,1000);
+        jf.setSize(1000, 1000);
         jf.setTitle("Deal Or No Deal");
-        JPanel fullMenu = getFullMenu();
+        //JPanel fullMenu = getFullMenu();
 
         createMenu(jf);
 
@@ -380,7 +347,7 @@ public class GameGui {
 
     }
 
-    public void createMenu(JFrame jf){
+    public void createMenu(JFrame jf) {
 
         JLabel logo = new JLabel("DEAL OR NO DEAL");
         logo.setFont(new Font("Arial", Font.PLAIN, 80));
@@ -388,14 +355,14 @@ public class GameGui {
         JPanel menu = getMainMenu();
         JPanel topMenu = getMainTopMenu();
 
-        BoxLayout bl = new BoxLayout(menu, BoxLayout.Y_AXIS);
-        BoxLayout bl2 = new BoxLayout(topMenu, BoxLayout.X_AXIS);
-        BoxLayout bl3 = new BoxLayout(jf, BoxLayout.Y_AXIS);
+        new BoxLayout(menu, BoxLayout.Y_AXIS);
+        new BoxLayout(topMenu, BoxLayout.X_AXIS);
+        new BoxLayout(jf, BoxLayout.Y_AXIS);
 
-        fullMenu.setSize(new Dimension(1000,1000));
+        fullMenu.setSize(new Dimension(1000, 1000));
 
-        menu.setPreferredSize(new Dimension(700,600));
-        topMenu.setSize(new Dimension(1000,200));
+        menu.setPreferredSize(new Dimension(700, 600));
+        topMenu.setSize(new Dimension(1000, 200));
 
         JButton start = getBtnStart();
         JButton help = getBtnHelp();
@@ -408,7 +375,7 @@ public class GameGui {
         mute.setText("Mute");
 
         Font btnFont = new Font("Arial", Font.PLAIN, 30);
-        Dimension btnSize = new Dimension(300,100);
+        Dimension btnSize = new Dimension(300, 100);
 
         start.setPreferredSize(btnSize);
         help.setPreferredSize(btnSize);
@@ -420,8 +387,8 @@ public class GameGui {
         exit.setFont(btnFont);
         mute.setFont(btnFont);
 
-        topMenu.setBorder(new EmptyBorder(100,20,50,20));
-        menu.setBorder(new EmptyBorder(100,400,100,400));
+        topMenu.setBorder(new EmptyBorder(100, 20, 50, 20));
+        menu.setBorder(new EmptyBorder(100, 400, 100, 400));
 
         topMenu.add(logo);
         menu.add(start);
@@ -437,5 +404,72 @@ public class GameGui {
 
     }
 
+    public void createHelpUI() {
 
+        if (!getGame().isVisible()) {
+
+
+            getHelpContainer().setVisible(true);
+
+
+        } else {
+
+            helpScreenLogic();
+
+        }
+
+
+    }
+
+
+    public void helpScreenLogic() {
+
+        helpContainer = new JPanel();
+        helpContainer.setLayout(new FlowLayout());
+        JTextArea jta = new JTextArea(5, 5);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("helptext.txt"));
+
+            String helpText;
+
+            helpText = br.readLine();
+
+            jta.setFont(new Font("Arial", Font.PLAIN, 20));
+            jta.setPreferredSize(new Dimension(650, 200));
+            jta.append(helpText + "\n");
+            jta.append(helpText + "\n");
+            jta.append(helpText + "\n");
+            jta.append(helpText + "\n");
+            jta.append(helpText + "\n");
+            helpContainer.add(jta);
+
+        } catch (FileNotFoundException ex) {
+
+            JOptionPane.showMessageDialog(null, "File Not Found");
+
+        } catch (IOException ex) {
+
+            JOptionPane.showMessageDialog(null, "File Error");
+        }
+
+        JButton jb = new JButton("Exit");
+        jb.setPreferredSize(new Dimension(290, 100));
+        jb.setFont(new Font("Arial", Font.PLAIN, 20));
+        helpContainer.add(jb);
+        helpContainer.setBorder(new EmptyBorder(100, 20, 50, 20));
+        getMainGame().add(helpContainer);
+        jb.addActionListener(e1 -> {
+
+            helpContainer.setVisible(false);
+            showUI();
+
+
+        });
+
+
+    }
 }
+
+
+

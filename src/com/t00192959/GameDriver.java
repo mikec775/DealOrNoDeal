@@ -15,7 +15,7 @@ public class GameDriver {
 
     public static void main(String[] args) throws IOException {
 
-        GameGui home = new GameGui(new JFrame(), new JPanel(), new JPanel(), new JButton(), new JButton(), new JButton(), new JButton());
+        new GameGui(new JFrame(), new JPanel(), new JPanel(), new JButton(), new JButton(), new JButton(), new JButton());
 
         Player p1 = new Player("Joe");
         p1.setUserDetails();

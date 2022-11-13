@@ -89,7 +89,7 @@ public class GameLogic {
 
             }
 
-            bnk.fillArray(Banker.moneyRandomHolder);
+            Banker.fillArray(Banker.moneyRandomHolder);
 
         } catch(Exception e){
 

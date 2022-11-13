@@ -39,7 +39,7 @@ public class Banker {
 
             GameDriver.musicPlayer("telephone.wav", 0);
             genMoney = generateMoney();
-            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", 0);
+            choice = JOptionPane.showConfirmDialog(jf, genMoney, "Offer", JOptionPane.YES_NO_OPTION);
 
         } else if(n==25) {
 
@@ -95,6 +95,7 @@ public class Banker {
 
             int value = Integer.parseInt(jtf.getText());
             arrai.add(value);
+
 
         }
 
