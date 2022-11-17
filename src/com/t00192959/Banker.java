@@ -87,20 +87,6 @@ public class Banker {
         return remaining;
     }
 
-    public static void fillArray(ArrayList<JTextField> xyz){
-
-        ArrayList<Integer> arrai = new ArrayList<>();
-
-        for (JTextField jtf: xyz) {
-
-            int value = Integer.parseInt(jtf.getText());
-            arrai.add(value);
-
-
-        }
-
-    }
-
     public void addMoney(int money){
 
         knows.add(money);

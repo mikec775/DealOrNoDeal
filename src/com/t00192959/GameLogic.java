@@ -89,7 +89,6 @@ public class GameLogic {
 
             }
 
-            Banker.fillArray(Banker.moneyRandomHolder);
 
         } catch(Exception e){
 

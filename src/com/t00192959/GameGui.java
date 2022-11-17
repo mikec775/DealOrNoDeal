@@ -422,7 +422,6 @@ public class GameGui {
 
     }
 
-
     public void helpScreenLogic() {
 
         helpContainer = new JPanel();
