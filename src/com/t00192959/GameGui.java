@@ -318,6 +318,7 @@ public class GameGui {
             GameLogic gL = new GameLogic(getMoneyHolder());
             gL.boxLogic(getBoxHolder());
 
+            //http://www.java2s.com/Tutorials/Java/Swing/JSlider/Add_change_event_listener_to_a_JSlider_in_Java.htm
             jsl.addChangeListener(e -> {
 
                 volume = jsl.getValue();
@@ -343,7 +344,7 @@ public class GameGui {
         createMenu(jf);
 
         jf.setVisible(true);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 
@@ -453,7 +454,7 @@ public class GameGui {
             JOptionPane.showMessageDialog(null, "File Error");
         }
 
-        JButton jb = new JButton("Exit");
+        JButton jb = new JButton("Back");
         jb.setPreferredSize(new Dimension(290, 100));
         jb.setFont(new Font("Arial", Font.PLAIN, 20));
         helpContainer.add(jb);

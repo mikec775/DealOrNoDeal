@@ -131,6 +131,7 @@ public class GameLogic {
 
         for (Clip clip: GameDriver.clips) {
 
+            //https://www.tabnine.com/code/java/methods/javax.sound.sampled.Line/getControl
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             float volumeUpdate = (float) (Math.log((double)volume / 100.0) / Math.log(10.0) * 20.0);
             gainControl.setValue(volumeUpdate);

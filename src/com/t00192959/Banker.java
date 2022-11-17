@@ -87,7 +87,7 @@ public class Banker {
         return remaining;
     }
 
-    public static ArrayList<Integer> fillArray(ArrayList<JTextField> xyz){
+    public static void fillArray(ArrayList<JTextField> xyz){
 
         ArrayList<Integer> arrai = new ArrayList<>();
 
@@ -98,8 +98,6 @@ public class Banker {
 
 
         }
-
-        return arrai;
 
     }
 
