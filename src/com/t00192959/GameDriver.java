@@ -38,7 +38,15 @@ public class GameDriver {
                 clips.add(clip);
 
                 if(clips.size()>=2){
-                    //https://www.tabnine.com/code/java/methods/javax.sound.sampled.Line/getControl
+                    /**  Title: How to use getControl method in javax.sound.sampled.Line
+                     Author: tabnine
+                     Site owner/sponsor: tabnine.com
+                     Date: 2022
+                     Availability: https://www.tabnine.com/code/java/methods/javax.sound.sampled.Line/getControl
+                     (Accessed 12-10-22)
+
+                     Modified: repurposed formula to make it nicer to work with
+                     **/
                     GameLogic.volumeControl(GameGui.volume);
 
                 }

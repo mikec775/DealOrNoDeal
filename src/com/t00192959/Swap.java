@@ -25,7 +25,15 @@ public class Swap {
         JButton jb1 = new JButton();
         jb1.setPreferredSize(new Dimension(500,200));
 
-        //https://stackoverflow.com/questions/19663009/overriding-button-background
+        /**  Title: Overriding button background
+         Author: sage
+         Site owner/sponsor: stackoverflow
+         Date: 29-10-13
+         Availability: https://stackoverflow.com/questions/19663009/overriding-button-background
+         (Accessed 12-10-22)
+
+         **/
+
         jb1.setContentAreaFilled(false);
 
         jb1.setBorderPainted(false);
@@ -37,7 +45,14 @@ public class Swap {
         JButton jb2 = new JButton();
         jb2.setPreferredSize(new Dimension(500,200));
 
-        //https://stackoverflow.com/questions/19663009/overriding-button-background
+        /**  Title: Overriding button background
+         Author: sage
+         Site owner/sponsor: stackoverflow
+         Date: 29-10-13
+         Availability: https://stackoverflow.com/questions/19663009/overriding-button-background
+         (Accessed 12-10-22)
+
+         **/
         jb2.setContentAreaFilled(false);
 
         jb2.setBorderPainted(false);

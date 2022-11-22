@@ -276,7 +276,14 @@ public class GameGui {
                 JButton jb = new JButton();
                 jb.setPreferredSize(new Dimension(190, 90));
 
-                //https://stackoverflow.com/questions/19663009/overriding-button-background
+                /**  Title: Overriding button background
+                 Author: sage
+                 Site owner/sponsor: stackoverflow
+                 Date: 29-10-13
+                 Availability: https://stackoverflow.com/questions/19663009/overriding-button-background
+                 (Accessed 12-10-22)
+
+                 **/
                 jb.setContentAreaFilled(false);
 
                 jb.setBorderPainted(false);
@@ -318,7 +325,18 @@ public class GameGui {
             GameLogic gL = new GameLogic(getMoneyHolder());
             gL.boxLogic(getBoxHolder());
 
-            //http://www.java2s.com/Tutorials/Java/Swing/JSlider/Add_change_event_listener_to_a_JSlider_in_Java.htm
+
+            /**  Title: Add change event listener to a JSlider in Java
+                 Author: jav2s
+                 Site owner/sponsor: java2s.com
+                 Date: 2022
+                 Availability: http://www.java2s.com/Tutorials/Java/Swing/JSlider/Add_change_event_listener_to_a_JSlider_in_Java.htm
+                 (Accessed 12-11-22)
+
+                 Modified: split into method and used my lambda expression style instead
+             **/
+
+
             jsl.addChangeListener(e -> {
 
                 volume = jsl.getValue();

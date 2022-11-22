@@ -126,11 +126,21 @@ public class GameLogic {
 
     }
 
+
+    /**  Title: How to use getControl method in javax.sound.sampled.Line
+     Author: tabnine
+     Site owner/sponsor: tabnine.com
+     Date: 2022
+     Availability: https://www.tabnine.com/code/java/methods/javax.sound.sampled.Line/getControl
+     (Accessed 12-11-22)
+
+     Modified: repurposed formula to make it nicer to work with
+     **/
+
     public static void volumeControl(float volume){
 
         for (Clip clip: GameDriver.clips) {
 
-            //https://www.tabnine.com/code/java/methods/javax.sound.sampled.Line/getControl
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             float volumeUpdate = (float) (Math.log((double)volume / 100.0) / Math.log(10.0) * 20.0);
             gainControl.setValue(volumeUpdate);
